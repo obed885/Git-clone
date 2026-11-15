@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """
 Your Own Git - a small Git-like version-control tool.
 
@@ -20,9 +19,9 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 
-# ---------------------------------------------------------------------------
+
 # Repository and paths
-# ---------------------------------------------------------------------------
+
 
 class GitError(Exception):
     pass
@@ -109,9 +108,9 @@ def check_ref_name(name):
         raise GitError(f"Invalid reference name: {name!r}")
 
 
-# ---------------------------------------------------------------------------
+
 # .gitignore handling
-# ---------------------------------------------------------------------------
+
 
 def load_ignore_patterns(repo):
     ignore_file = repo.worktree / ".gitignore"
@@ -174,9 +173,9 @@ def iter_worktree_files(repo, start=None, patterns=None):
                 yield rel
 
 
-# ---------------------------------------------------------------------------
+
 # Git objects
-# ---------------------------------------------------------------------------
+
 
 def write_object(repo, obj_type, data):
     header = obj_type.encode("ascii") + b" " + str(len(data)).encode("ascii") + b"\0"
@@ -224,9 +223,9 @@ def hash_file(path, repo=None, write=False):
     return blob_sha(data)
 
 
-# ---------------------------------------------------------------------------
+
 # References and index
-# ---------------------------------------------------------------------------
+
 
 def read_ref(repo, ref, _depth=0):
     if _depth > 10:
@@ -304,9 +303,9 @@ def save_index(repo, index):
     )
 
 
-# ---------------------------------------------------------------------------
+
 # Tree and commit serialization
-# ---------------------------------------------------------------------------
+
 
 def tree_entries(repo, tree_sha):
     obj_type, data = read_object(repo, tree_sha)
@@ -416,9 +415,9 @@ def format_identity_date(identity):
         return identity
 
 
-# ---------------------------------------------------------------------------
+
 # User identity
-# ---------------------------------------------------------------------------
+
 
 def parse_user_from_config(path):
     """Read user.name / user.email from a Git config file (tolerant parser)."""
@@ -500,9 +499,9 @@ def create_commit(repo, tree_sha, parent_sha, message):
     return write_object(repo, "commit", data)
 
 
-# ---------------------------------------------------------------------------
+
 # Commands
-# ---------------------------------------------------------------------------
+
 
 def cmd_init(args):
     init_repo(args.path)
@@ -772,9 +771,9 @@ def cmd_check_ignore(args):
     return 0 if found else 1
 
 
-# ---------------------------------------------------------------------------
+
 # CLI
-# ---------------------------------------------------------------------------
+
 
 def build_parser():
     parser = argparse.ArgumentParser(
